@@ -1,5 +1,4 @@
-npm install @mui/material @mui/styled-engine-sc styled-components
-yarn add react-native-web@0.17.1 native-base react-native-svg@12.1.1 react-native-safe-area-context@3.3.2
-yarn add dexie dexie-react-hooks
-npm i react-router-dom
-yarn add native-base
+Install typescript libraries
+npm install typescript @types/node @types/react @types/react-dom @types/jest @types/native-base --save-dev
+ yarn add @types/native-base
+ 
