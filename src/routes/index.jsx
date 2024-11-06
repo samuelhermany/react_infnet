@@ -1,9 +1,11 @@
-import { createBrowserRouter, createRoutesFromElements, RouterProvider, Route} from "react-router-dom";
+import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider} from "react-router-dom";
 
 import Home from "../views/Home";
-import Settings from "../views/Settings";
-import SingUp from "../views/Singup";
-import SignIn from "../views/Signin";
+import Settings from '../views/Settings';
+import SingUp from '../views/Singup';
+import SignIn from '../views/Signin';
+import Form from '../views/Form';
+import Dashboard from '../views/Dashboard';
 import Protected from "./protected";
 import { handleVerificationProtected, isAuthenticated } from "../services/authentication";
 
@@ -11,9 +13,11 @@ import { handleVerificationProtected, isAuthenticated } from "../services/authen
 const router = createBrowserRouter(
    createRoutesFromElements(
       <Route path="/">
-         <Route element={Protected}>
+         <Route element={<Protected/>}>
             <Route index element={<Home />} loader={() => handleVerificationProtected()}/>
-            <Route path="settings" element={<Settings />} loader={() => handleVerificationProtected()}/>
+            <Route path="dashboard" element={<Dashboard />} loader={() => handleVerificationProtected()}/>
+            <Route path="new/:type" element={<Form />} loader={() => handleVerificationProtected()}/>
+            <Route path=":type/:id" element={<Form />} loader={() => handleVerificationProtected()}/>
          </Route>
          <Route path="signin" element={<SignIn />} loader={() => isAuthenticated()}/>
          <Route path="singup" element={<SingUp />} loader={() => isAuthenticated()}/>

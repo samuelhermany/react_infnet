@@ -1,7 +1,5 @@
-const Singup = () => {
-   return (
-      'Singup'
-   );
+const SingUp: React.FC = () => {
+   return 'SingUp'
 };
 
-export default Singup;
+export default SingUp;

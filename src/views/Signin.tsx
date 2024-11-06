@@ -1,7 +1,5 @@
-const Signin = () => {
-   return (
-      'Signin'
-   );
+const SignIn: React.FC = () => {
+   return 'Signin'
 };
 
-export default Signin;
+export default SignIn;
