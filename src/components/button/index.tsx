@@ -1,4 +1,4 @@
-import { Button, ButtonProps } from '@mui/material';
+import { Button as MuiButton, ButtonProps } from '@mui/material';
 
 interface IButtonProps extends ButtonProps {
   children?: React.ReactNode;
@@ -11,13 +11,13 @@ interface IButtonProps extends ButtonProps {
 const ButtonComponent: React.FC<IButtonProps> = ({ children, ...props }) => {
   const { variant = "outlined", size = "large" } = props;
 
-  return <Button
+  return <MuiButton
           className={`general-button ${props.className ? props.className : ""}`}
           variant={variant}
           size={size}
           {...props}>
             {children}
-          </Button>;
+          </MuiButton>;
 }
 
 export default ButtonComponent;

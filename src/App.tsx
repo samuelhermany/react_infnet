@@ -1,8 +1,7 @@
-import Routes from "./routes";
+import { Button } from "./components";
 
-
-function App() {
-  return <Routes />
+const App = () => {
+  return <Button>Olá</Button>
 }
 
 export default App;
