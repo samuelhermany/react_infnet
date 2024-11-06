@@ -1,5 +1,5 @@
 const SignIn: React.FC = () => {
-   return 'Signin'
+   return 'SignIn'
 };
 
 export default SignIn;
