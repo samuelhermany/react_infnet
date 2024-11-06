@@ -57,5 +57,6 @@
     "vite-plugin-live-reload": "^3.0.3",
     "vite-plugin-svgr": "^4.3.0",
     "vite-tsconfig-paths": "^5.1.0"
+
   }
 }
