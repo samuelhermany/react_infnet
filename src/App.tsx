@@ -1,8 +1,12 @@
+import AppProvider from "./Context";
 import Routes from "./routes";
 
-
-function App() {
-  return <Routes />
+const App = () => {
+  return (
+    <AppProvider>
+      <Routes />
+    </AppProvider>
+  )
 }
 
 export default App;
