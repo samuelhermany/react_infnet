@@ -1,7 +1,10 @@
-import { createContext, useContext, useState } from "react";
-import { Alert, Grid, Snackbar } from "./components";
+import { createContext, useContext, useEffect, useState } from 'react';
+import { Alert, Grid, Snackbar } from './components';
+// import { useTranslation } from 'react-i18next';
+import { createClient } from '@supabase/supabase-js';
 
 const AppContext = createContext(null);
+const supabase = createClient(import.meta.env.VITE_SUPABASE_URL, import.meta.env.VITE_SUPABASE_ANON_KEY)
 
 // Children é o App.tsx
 const AppProvider = ({children}) => {
@@ -43,6 +46,7 @@ const AppProvider = ({children}) => {
       changeLanguage,
       showSnackMessage,
       showAlertMessage,
+      supabase,
    };
 
    return (
@@ -64,7 +68,7 @@ const AppProvider = ({children}) => {
                width:'100%',
                padding:2,
             }}>
-            <Grid item={true} size={12}>
+            <Grid item={true} size={{xs: 12}}>
                <Alert variant={alertVariant} severity={alertSeverity}>{alertMessage}</Alert>
             </Grid>
          </Grid>
