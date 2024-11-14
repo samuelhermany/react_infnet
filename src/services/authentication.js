@@ -1,22 +1,34 @@
 import { redirect } from "react-router-dom";
 
 const isAuthenticated = () => {
-   const token = localStorage.getItem('token');
+    const session = localStorage.getItem("session");
 
-   // se tem token, redireciona pra página inicial
-   if (token) throw redirect ("/");
-   return null;
+    if (session) throw redirect("/");
+    return null;
 }
 
-   const handleVerificationProtected =() =>{
-      const token = localStorage.getItem('token');
+const handleVerificationProtected = () => {
+    const session = localStorage.getItem("session");
 
-      // se não tem token, redireciona pra página singin
-      if (!token) throw redirect ("/signin");
-      return null;
-   }
+    if (!session) throw redirect("/signin");
+    return null;
+}
 
-export{
-   isAuthenticated,
-   handleVerificationProtected
+const signIn = async (email, password, supabase) => {
+    return await supabase.auth.signInWithPassword({
+        email, password
+    });
+}
+
+const signUp = async (email, password, supabase) => {
+    return await supabase.auth.signUp({
+        email, password
+    });
+}
+
+export {
+    isAuthenticated,
+    handleVerificationProtected,
+    signIn,
+    signUp
 }

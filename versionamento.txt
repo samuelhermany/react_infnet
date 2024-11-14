@@ -1,0 +1,36 @@
+x.x.x
+
+MAJOR.MINOR.PATH
+
+Major: Quando há mudança, melhoria no escopo. mudança drástica no projeto (interfaçe, conexção com banco, api).
+
+Minor: Novidades, item que não afetam o escopo de projeto. Novas fuincionalidadesw, melhorias.
+
+Path: Correção de bugs, peqeunas falhas, pequenas correções que não impactam a aplicação de forma lóogica (Escopo)
+
+
+api/v1/pagamento
+{
+   nome: '',
+   cpf: '',
+   valor_totall '',
+   cartao: '',
+}
+api/v2/
+{
+   nome: '',
+   cpf: '',
+   valor_totall '',
+   telefone: '',
+   cartao: '',
+}
+api/v3
+{
+   nome: '',
+   cpf: '',
+   valor_totall '',
+   telefone: '',
+   itens: []
+   email: '',
+   cartao: '',
+}
