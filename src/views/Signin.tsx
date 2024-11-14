@@ -24,7 +24,6 @@ const SignIn: React.FC = () => {
 
     const verifyLogin = async () => {
         let { data: response, error } = await signIn(data.email.value, data.password.value, supabase);
-
         if (error && error.message === "Invalid login credentials"){
             showSnackMessage("Dados de usuário inválidos");
         } else {

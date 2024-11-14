@@ -1,13 +1,14 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import { Alert, Grid, Snackbar } from './components';
-// import { useTranslation } from 'react-i18next';
 import { createClient } from '@supabase/supabase-js';
+import { useTranslation } from 'react-i18next';
 
 const AppContext = createContext(null);
 const supabase = createClient(import.meta.env.VITE_SUPABASE_URL, import.meta.env.VITE_SUPABASE_ANON_KEY)
 
 // Children é o App.tsx
 const AppProvider = ({children}) => {
+   const { t: translate, i18n } = useTranslation();
    const timeoutDuration = 6000;
 
    const [sanckOpen, setSanckOpen] = useState(false)
@@ -17,9 +18,12 @@ const AppProvider = ({children}) => {
    const [alertSeverity, setAlertSeverity] = useState("");
    const [alertVariant, setAlertVariant] = useState("");
 
-   const changeLanguage = ()=> {
-      console.log("oi");
-   }
+   const changeLanguage = (lang) => {      
+      i18n.changeLanguage(lang);
+      // É importante para não ficar toda hora voltando para o dioma do navegador
+      localStorage.setItem("language", lang);
+  }
+
 
    const showSnackMessage = (mensage) => {
       setSnackMessage(mensage);
@@ -47,7 +51,21 @@ const AppProvider = ({children}) => {
       showSnackMessage,
       showAlertMessage,
       supabase,
+      translate
    };
+
+   // Faz a seleção do idioma
+   useEffect(() => {
+      const storeLanguage = localStorage.getItem("language");
+      // Se no localstorage tiver um idioma, usa esse, senão usa o idioma do navegador
+      // O split é pra pegar so o pt enão o pt-BR
+      if (storeLanguage) {
+         changeLanguage(storeLanguage);
+     } else {
+         const navLang = navigator.language.split("-")[0];
+         changeLanguage(navLang);
+     }
+   }, [])
 
    return (
       <AppContext.Provider value={sharedState}>
