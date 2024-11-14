@@ -2,15 +2,14 @@ import { Button, DatePicker, DateTimePicker } from "../components";
 import { useAppContext } from "../Context";
 
 const SignIn: React.FC = () => {
-   const {showSnackMessage, showAlertMessage} = useAppContext();
-
+   const { showSnackMessage, showAlertMessage, translate, changeLanguage } = useAppContext();
+   
    return (
       <>
-         <Button onClick={() => showSnackMessage("mensagem customizada")}>Clique aqui</Button>
-         <Button onClick={() => showAlertMessage("mensagem customizada" , "success", "filled")}>Clique sucess</Button>
-         <Button onClick={() => showAlertMessage("mensagem customizada" , "warning", "outlined")}>Clique warning</Button>
-         <Button onClick={() => showAlertMessage("mensagem customizada" , "error")}>Clique error</Button>
-         <Button onClick={() => showAlertMessage("mensagem customizada" , "info")}>Clique info</Button>
+         <Button onClick={() => showSnackMessage("Mensagem customizada")}>{translate("welcome")}</Button>
+         <Button onClick={() => changeLanguage("es")}>ES</Button>
+         <Button onClick={() => changeLanguage("en")}>EN</Button>
+         <Button onClick={() => changeLanguage("pt")}>PT</Button>
 
          {/* O Horário exibido é sempre no formato UTC */}
          <DateTimePicker
