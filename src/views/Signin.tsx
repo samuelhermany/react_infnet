@@ -24,7 +24,7 @@ const SignIn: React.FC = () => {
 
     const verifyLogin = async () => {
         let { data: response, error } = await signIn(data.email.value, data.password.value, supabase);
-        
+
         if (error && error.message === "Invalid login credentials"){
             showSnackMessage("Dados de usuário inválidos");
         } else {
@@ -40,10 +40,10 @@ const SignIn: React.FC = () => {
                     paddingTop: 8
                 }}
             >
-                <Grid
+                <Grid 
                     sx={styles.boxAdjustment}
                     container={true}>
-                    <Grid
+                    <Grid 
                         sx={styles.centerBox}
                         item={true} size={{xs: 12}}>
                         <Avatar
@@ -51,7 +51,7 @@ const SignIn: React.FC = () => {
                             src={logo}
                         />
                     </Grid>
-                    <Grid
+                    <Grid 
                         sx={{
                             ...styles.centerBox,
                             ...styles.marginTop
@@ -59,7 +59,12 @@ const SignIn: React.FC = () => {
                         item={true} size={{xs: 12}}>
                         <Typography variant="h3">Login</Typography>
                     </Grid>
-                    <Grid
+                    <Grid 
+                        sx={styles.centerBox}
+                        item={true} size={{xs: 12}}>
+                        <Typography variant="h5">{translate('welcome')}</Typography>
+                    </Grid>
+                    <Grid 
                         sx={styles.marginTop}
                         item={true} size={{xs: 12}}>
                         <TextField
@@ -69,7 +74,7 @@ const SignIn: React.FC = () => {
                             value={data.email.value}
                         />
                     </Grid>
-                    <Grid
+                    <Grid 
                         sx={styles.marginTop}
                         item={true} size={{xs: 12}}>
                         <TextField
@@ -79,7 +84,7 @@ const SignIn: React.FC = () => {
                             type="password"
                             value={data.password.value}/>
                     </Grid>
-                    <Grid
+                    <Grid 
                         sx={{
                             ...styles.centerBox,
                             ...styles.marginTop
@@ -87,10 +92,10 @@ const SignIn: React.FC = () => {
                         item={true} size={{xs: 12}}>
                         <Link to="/signup">Cadastrar</Link>
                     </Grid>
-                    <Grid
+                    <Grid 
                         sx={styles.marginTop}
                         item={true} size={{xs: 12}}>
-                        <Button
+                        <Button 
                             fullWidth={true}
                             onClick={verifyLogin}>Entrar</Button>
                     </Grid>
