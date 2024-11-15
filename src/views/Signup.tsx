@@ -131,7 +131,7 @@ const SignUp: React.FC = () => {
                             fullWidth={true}
                             onChange={(event) => handleChange(data, setData, event.target.value, "confirm_password")}
                             type="password"
-                            value={data.confirm_password.value}/>
+                            value={data.confirm_password.value}/>                            
                     </Grid>
                     <Grid 
                         sx={{
