@@ -9,7 +9,7 @@ import { validateEmail, validPassword } from "../utils/validators";
 
 const SignUp: React.FC = () => {
     const navigate = useNavigate();
-    const { showSnackMessage, showAlertMessage, supabase } = useAppContext();
+    const { showSnackMessage, showAlertMessage, supabase, translate } = useAppContext();
     const [data, setData] = useState({
         email: {
             value: "tiago.silva@prof.infnet.edu.br",
@@ -97,7 +97,7 @@ const SignUp: React.FC = () => {
                     <Grid 
                         sx={styles.centerBox}
                         item={true} size={{xs: 12}}>
-                        <Typography variant="h5">Seja Bem-vindo!</Typography>
+                        <Typography variant="h5">{translate('welcome')}</Typography>
                     </Grid>
                     <Grid 
                         sx={styles.marginTop}
