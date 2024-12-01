@@ -1,10 +1,10 @@
 import { Navigate, Outlet } from "react-router-dom";
 
 const Protected = () => {
-   const token = localStorage.getItem('token');
+   const session = localStorage.getItem('session');
 
    // Se tiver token, renderiza a página, senã oleva pra página singin
-   return token ? <Outlet /> : <Navigate to="/signin" />;
+   return session ? <Outlet /> : <Navigate to="/signin" />;
 }
 
 export default Protected;
