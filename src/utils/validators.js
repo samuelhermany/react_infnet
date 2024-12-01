@@ -1,6 +1,6 @@
 const validateEmail = (email) => {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  // mesnagens exibidas em cada situação, vazio, invalido e valido
+  // Mensagens exibidas em cada situação, vazio, invalido e valido
   if (email === "") {
     return { error: true, helperText: "O campo e-mail é obrigatório" };
   } else if (!emailRegex.test(email)) {
