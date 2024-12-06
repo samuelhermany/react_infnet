@@ -49,7 +49,8 @@ const Settings: React.FC = () => {
 
     const save = async () => {
         setLoading(true);
-        console.log(data.birth.value)
+        //console.log(data.birth.value)
+        //console.log(user)
         const d: any = {
             user_id: user ? user.id : null,
             name: data.name.value,
@@ -58,10 +59,12 @@ const Settings: React.FC = () => {
             height: data.height.value,
         };
 
+        // Se data possui id, então adiciona ele ao d
         if (data.id) {
             d["id"] = data.id;
         }
-
+        console.log(d)
+        console.log(d.user_id)
         const { data: result, error } = await saveOrUpdate("profile", d, supabase);
         if (error) {
             showMessage(error.message);
@@ -76,7 +79,9 @@ const Settings: React.FC = () => {
     }
 
     useEffect(() => {
-        loadProfile(data, setData, user, supabase);
+        if (user) {
+            loadProfile(data, setData, user, supabase);
+        }
     }, []);
 
     return  <>

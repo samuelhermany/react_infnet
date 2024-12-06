@@ -13,6 +13,7 @@
     "message-confirm-password-required": "Confirmação de senha obrigatória.",
     "message-password-not-match": "As senhas não coincidem.",
     "invalid-credentials": "Credenciais inválidas.",
+    "email-not-confirmed": "Email não confirmado",
     "user-creation-success": "Usuário criado com sucesso!!!",
     "english": "Inglês",
     "spanish": "Espanhol", 
@@ -54,5 +55,6 @@
     "min": "Min.",
     "from": "De",
     "to": "Até",
-    "days": "Dia(s)"
+    "days": "Dia(s)",
+    "error-login": "Erro ao fazer login"
 }

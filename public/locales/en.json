@@ -13,6 +13,7 @@
     "message-confirm-password-required": "Confirm password is required.",
     "message-password-not-match": "Passwords do not match.",
     "invalid-credentials": "Invalid credential.",
+    "email-not-confirmed": "Email not confirmed",
     "user-creation-success": "User created successfully!!!",
     "english": "English",
     "spanish": "Spanish", 
@@ -54,5 +55,6 @@
     "min": "Min.",
     "from": "From",
     "to": "To",
-    "days": "Day(s)"
+    "days": "Day(s)",
+    "error-login": "Error loging"
 }

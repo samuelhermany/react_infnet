@@ -35,8 +35,11 @@ const SignUp: React.FC = () => {
         setLoading(true);
         const { data: d, error } = await signUp(data.email.value, data.password.value, supabase);
         if (error) {
-            showMessage(error.message);
-        }else {
+            console.error("Login error:", error);
+            if (error.message === "Invalid login credentials") {
+                showMessage(t('invalid-credentials'));
+            }    
+        }else {            
             showMessage(t('user-creation-success'));
             navigate("/signin");
         }

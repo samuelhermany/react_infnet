@@ -28,10 +28,16 @@ const SignIn: React.FC = () => {
 
     const login = async () => {
         setLoading(true);
-        const { data: d, error } = await signIn(data.email.value, data.password.value, supabase);
-        if (error && error.message === "Invalid login credentials") {
-            showMessage(t('invalid-credentials'))
-        }else {
+        const { data: d, error } = await signIn(data.email.value, data.password.value, supabase);        
+        if (error){            
+            if (error.message === "Invalid login credentials") {
+                showMessage(t('invalid-credentials'))
+            }else if(error.message === "Email not confirmed") {
+                showMessage(t('email-not-confirmed'))
+            }else {
+                showMessage(t('error-login'))
+            }
+        } else if (d?.session && d?.user) {
             localStorage.setItem("session", JSON.stringify(d.session));
             localStorage.setItem("user", JSON.stringify(d.user));
             navigate("/");
