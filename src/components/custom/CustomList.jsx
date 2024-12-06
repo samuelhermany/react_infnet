@@ -13,7 +13,7 @@ import { useAppContext } from '../../Context';
 
 const CustomList = ({items, ...props}) => {
     const navigate = useNavigate();
-    const { translate } = useAppContext();
+    const { t } = useAppContext();
 
     const getIcon = (typeAction) => {
         switch (typeAction) {
@@ -45,11 +45,9 @@ const CustomList = ({items, ...props}) => {
         {
             items.map((item, index) => {
                 const typeStr = actionTypeListToInt[item.action_type];
-                return <ListItem  sx={{
-                                    backgroundColor: "#fff",
-                                    borderRadius: "60px",
-                                    marginTop: '1em'
-                                }}
+                return <ListItem
+                            key={`item-${item.id || index}`}
+                            sx={{ backgroundColor: "#fff",  borderRadius: "60px",  marginTop: '1em' }}
                                 id={`new-item-list-${index}`}
                                 onClick={() => navigate(`/${item.action_type}/${item.id}`)}
                         >
@@ -60,7 +58,7 @@ const CustomList = ({items, ...props}) => {
                                     {getIcon(item.action_type)}
                                 </Avatar>
                             </ListItemAvatar>
-                            <ListItemText primary={translate(typeStr)} secondary={generateSubtitle(item, translate)} />
+                            <ListItemText primary={t(typeStr)} secondary={generateSubtitle(item, t)} />
                         </ListItem>
             })
         }

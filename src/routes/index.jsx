@@ -1,4 +1,4 @@
-import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider, useLocation  } from "react-router-dom";
 
 import Home from '../views/Home';
 import Settings from '../views/Settings';
@@ -25,8 +25,8 @@ const router = createBrowserRouter(
     )
 );
 
-const Index = () => {
+const Routes  = () => {
     return <RouterProvider router={router} />
 }
 
-export default Index;
+export default Routes;

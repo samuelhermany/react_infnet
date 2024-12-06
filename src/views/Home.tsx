@@ -1,31 +1,66 @@
-import { IconButton } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
-import { Grid, Avatar, Box, Typography, CardNewItem, CustomList } from "../components";
+import { Grid, CardNewItem, Box, IconButton, Avatar, CustomList } from "../components";
+import { useAppContext } from "../Context";
 import babyImage from '../assets/img/baby.png';
 
+import CribIcon from '@mui/icons-material/Crib';
+import RestaurantMenuIcon from '@mui/icons-material/RestaurantMenu';
 import SignalCellularAltIcon from '@mui/icons-material/SignalCellularAlt';
 import SettingsIcon from '@mui/icons-material/Settings';
+import SpaIcon from '@mui/icons-material/Spa';
 
-import { useEffect, useState } from "react";
+import { Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { ACTIONS } from "../constants/actions";
+import { useEffect, useState } from "react";
 import { list } from "../services/database";
 
-const Home: React.FC = () => {
-    const navigate = useNavigate();
-    const theme = useTheme();
-    const [data, setData] = useState([]);
+import ActionInterface from "../interfaces/IAction";
+import { loadProfile } from "../utils/loader";
+import { calculateDuration, roundDays } from "../utils/date";
+import dayjs from "dayjs";
 
-    const loadData = () => {
-        const d = list();
-        if(d) {
-            setData(d);
+const Home: React.FC = () => {
+    const { t, user, supabase } = useAppContext();    
+    const theme = useTheme();
+    const navigate = useNavigate();
+    const [baby, setBaby] = useState({});
+    const [page, setPage] = useState(1);
+    const [data, setData] = useState<ActionInterface | null>(null);
+
+    const actionsMain = [
+        {
+            title: t("sleep"), 
+            actionType: 1,
+            icon: CribIcon,
+            color: "#4b10a9"
+        },
+        {
+            title: t("eat"),
+            actionType: 2,
+            icon: RestaurantMenuIcon,
+            color: "#47c869"
+        },
+        {
+            title: t("diaper"),
+            actionType: 3,
+            icon: SpaIcon,
+            color: "#f4cc1d"
         }
+    ]
+
+    const loadData = async () => {
+        const { data: d, error } = await list("action", {
+            "user_id": user ? user.id : null
+        }, page, supabase);
+        setData(d);
     }
 
     useEffect(() => {
-        loadData();
-    }, [])
+        if (user) {
+            loadProfile(baby, setBaby, user, supabase);
+            loadData();
+        }        
+    }, [user]);
 
     return  <Grid container={true}>
                 <Grid size={{ xs: 12 }}
@@ -63,7 +98,7 @@ const Home: React.FC = () => {
                                     ...styles.centerBox,
                                     ...styles.boxText
                                 }}>
-                                    <Typography component="p" sx={{...styles.text2}}>54 cm</Typography>
+                                    <Typography component="p" sx={{...styles.text2}}>{baby?.height?.value} cm</Typography>
                                     <Typography component="p" sx={{...styles.text3}}>Comprimento</Typography>
                                 </Box>
                             </Box>
@@ -82,8 +117,8 @@ const Home: React.FC = () => {
                                     ...styles.centerBox,
                                     ...styles.boxText
                                 }}>
-                                    <Typography component="p" sx={{...styles.text1}}>Benício</Typography>
-                                    <Typography component="p" sx={{...styles.text3}}>x Dias</Typography>
+                                    <Typography component="p" sx={{...styles.text1}}>{baby?.name?.value}</Typography>
+                                    <Typography component="p" sx={{...styles.text3}}>{roundDays(calculateDuration(baby?.birth?.value, dayjs().startOf('day').format(), "day"))} {t('days')}</Typography>
                                 </Box>
                             </Box>
                         </Grid>
@@ -111,7 +146,7 @@ const Home: React.FC = () => {
                                     ...styles.centerBox,
                                     ...styles.boxText
                                 }}>
-                                    <Typography component="p" sx={{...styles.text2}}>4.200 kg</Typography>
+                                    <Typography component="p" sx={{...styles.text2}}>{baby?.weight?.value} kg</Typography>
                                     <Typography component="p" sx={{...styles.text3}}>Peso</Typography>
                                 </Box>
                             </Box>
@@ -135,11 +170,10 @@ const Home: React.FC = () => {
                         <Grid size={{ xs: 12 }} item={true}>
                             <Grid container={true} spacing={2}>
                                 {
-                                    ACTIONS.map((action, i) => 
-                                    <Grid key={i} size={{ xs: 4 }}>
-                                        <CardNewItem
+                                    actionsMain.map((action, i) => <Grid key={i} size={{ xs: 4 }}>
+                                        <CardNewItem                                            
                                             title={action.title}
-                                            Icon={action.Icon}
+                                            Icon={action.icon}
                                             color={action.color}
                                             actionType={action.actionType}
                                         />

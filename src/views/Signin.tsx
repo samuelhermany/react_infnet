@@ -1,14 +1,18 @@
-import { Avatar, Box, Button, Grid, TextField, Typography } from "../components";
-import { useAppContext } from "../Context";
+import { Container, Box, Button, Typography, TextField, Avatar } from "../components";
 import logo from '../assets/img/logo.png';
-import { Link, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { validateChange, validateEmail, validatePasswords } from "../services/validators";
+import { handleInputValue } from "../services/actions";
 import { signIn } from "../services/authentication";
-import { useState } from "react";
-import { handleChange } from "../utils/core";
+import { useAppContext, useSnackbar } from "../Context";
 
 const SignIn: React.FC = () => {
+    const { t, supabase } = useAppContext();
+    const { showMessage } = useSnackbar();
     const navigate = useNavigate();
-    const { showSnackMessage, showAlertMessage, supabase, translate } = useAppContext();
+
+    const [loading, setLoading] = useState(false);
     const [data, setData] = useState({
         email: {
             value: "",
@@ -22,99 +26,97 @@ const SignIn: React.FC = () => {
         },
     })
 
-    const verifyLogin = async () => {
-        let { data: response, error } = await signIn(data.email.value, data.password.value, supabase);
-
-        if (error && error.message === "Invalid login credentials"){
-            showSnackMessage("Dados de usuário inválidos");
-        } else {
-            localStorage.setItem("session", JSON.stringify(response.session));
-            localStorage.setItem("user", JSON.stringify(response.user));
+    const login = async () => {
+        setLoading(true);
+        const { data: d, error } = await signIn(data.email.value, data.password.value, supabase);
+        if (error && error.message === "Invalid login credentials") {
+            showMessage(t('invalid-credentials'))
+        }else {
+            localStorage.setItem("session", JSON.stringify(d.session));
+            localStorage.setItem("user", JSON.stringify(d.user));
             navigate("/");
         }
+        setLoading(false);
     }
 
-    return  <Box
-                sx={{
-                    height: '100vh',
-                    paddingTop: 8
-                }}
-            >
-                <Grid 
-                    sx={styles.boxAdjustment}
-                    container={true}>
-                    <Grid 
-                        sx={styles.centerBox}
-                        item={true} size={{xs: 12}}>
-                        <Avatar
-                            sx={{ width: 180, height: 180 }}
-                            src={logo}
-                        />
-                    </Grid>
-                    <Grid 
-                        sx={{
-                            ...styles.centerBox,
-                            ...styles.marginTop
-                        }}
-                        item={true} size={{xs: 12}}>
-                        <Typography variant="h3">Login</Typography>
-                    </Grid>
-                    <Grid 
-                        sx={styles.centerBox}
-                        item={true} size={{xs: 12}}>
-                        <Typography variant="h5">{translate('welcome')}</Typography>
-                    </Grid>
-                    <Grid 
-                        sx={styles.marginTop}
-                        item={true} size={{xs: 12}}>
+    useEffect(() => {
+        validateChange(data, setData, "email", t);
+        validateChange(data, setData, "password", t);
+    }, [data.email.value, data.password.value])
+
+    return  <Container className="app-background" component="main">
+                <Box
+                    sx={{
+                        marginTop: 8,
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                    }}
+                >   
+                    <Avatar
+                        sx={{ width: 180, height: 180 }}
+                        src={logo}
+                    />
+                    <Typography component="h3" variant="h3">
+                        {t('login')}
+                    </Typography>
+                    <Typography component="h5" variant="h5">
+                        {t('welcome')}
+                    </Typography>
+                    <Box component="form" onSubmit={(e) => e.preventDefault()} noValidate sx={{ mt: 1 }}>
                         <TextField
-                            label="E-mail"
-                            fullWidth={true}
-                            onChange={(event) => handleChange(data, setData, event.target.value, "email")}
+                            margin="normal"
+                            required
+                            fullWidth
+                            id="email"
+                            label={t('email')}
+                            name="email"
+                            autoComplete="email"
+                            autoFocus
                             value={data.email.value}
+                            error={data.email.error}
+                            helperText={data.email.helperText}
+                            onChange={(event: Object) => handleInputValue(data, setData, "email", event)}
                         />
-                    </Grid>
-                    <Grid 
-                        sx={styles.marginTop}
-                        item={true} size={{xs: 12}}>
                         <TextField
-                            label="Senha"
-                            fullWidth={true}
-                            onChange={(event) => handleChange(data, setData, event.target.value, "password")}
+                            margin="normal"
+                            required
+                            fullWidth
+                            name="password"
+                            label={t('password')}
                             type="password"
-                            value={data.password.value}/>
-                    </Grid>
-                    <Grid 
-                        sx={{
-                            ...styles.centerBox,
-                            ...styles.marginTop
-                        }}
-                        item={true} size={{xs: 12}}>
-                        <Link to="/signup">Cadastrar</Link>
-                    </Grid>
-                    <Grid 
-                        sx={styles.marginTop}
-                        item={true} size={{xs: 12}}>
-                        <Button 
-                            fullWidth={true}
-                            onClick={verifyLogin}>Entrar</Button>
-                    </Grid>
-                </Grid>
-            </Box>
+                            id="password"
+                            autoComplete="current-password"
+                            value={data.password.value}
+                            error={data.password.error}
+                            helperText={data.password.helperText}
+                            onChange={(event: Object) => handleInputValue(data, setData, "password", event)}
+                        />
+                        <Box 
+                            component="span"
+                            sx={{
+                                marginTop: 2,
+                                display: 'flex',
+                                flexDirection: 'column',
+                                alignItems: 'center',
+                            }}
+                            >
+                            <Link to="/signup">{t('sign-up')}</Link>
+                        </Box>
+                        <Button
+                            loading={loading}
+                            type="submit"
+                            fullWidth
+                            variant="contained"
+                            sx={{ mt: 3, mb: 2 }}
+                            onClick={login}
+                            disabled={data.email.error || data.password.error}
+                        >
+                            {t('sign-in')}
+                        </Button>
+                    </Box>
+                </Box>
+            </Container>
 };
-
-const styles = {
-    centerBox: {
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center'
-    },
-    boxAdjustment: {
-        padding: 2
-    },
-    marginTop: {
-        marginTop: 4
-    }
-}
 
 export default SignIn;

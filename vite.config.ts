@@ -9,6 +9,7 @@ export default defineConfig(() => {
     },
     build: {
       outDir: 'build',
+      sourcemap: true, // Gera os source maps para depuração
     },
     plugins: [
         react(),
