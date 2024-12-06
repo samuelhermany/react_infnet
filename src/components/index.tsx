@@ -1,11 +1,11 @@
 export { default as Avatar } from './avatar';
-export { default as AppBar } from './custom/appBar';
+export { default as AppBar } from './custom/appbar';
 export { default as Button } from './button';
 export { default as Box } from './box';
 export { default as Container } from './container';
 export { default as Card } from './card';
 export { default as CardNewItem } from './custom/cardNewItem';
-export { default as CustomList } from './custom/customList';
+export { default as CustomList } from './custom/CustomList';
 export { default as Diaper } from './custom/diaper';
 export { default as Sleep } from './custom/sleep';
 export { default as Eat } from './custom/eat';

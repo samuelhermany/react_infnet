@@ -3,11 +3,11 @@ import { Grid, CardNewItem, Box, IconButton, Avatar, CustomList } from "../compo
 import { useAppContext } from "../Context";
 import babyImage from '../assets/img/baby.png';
 
-import CribIcon from '@mui/icons-material/Crib';
-import RestaurantMenuIcon from '@mui/icons-material/RestaurantMenu';
+import HotelIcon from '@mui/icons-material/Hotel';
+import DinnerDiningIcon from '@mui/icons-material/DinnerDining';
+import BabyChangingStationIcon from '@mui/icons-material/BabyChangingStation';
 import SignalCellularAltIcon from '@mui/icons-material/SignalCellularAlt';
 import SettingsIcon from '@mui/icons-material/Settings';
-import SpaIcon from '@mui/icons-material/Spa';
 
 import { Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
@@ -31,20 +31,20 @@ const Home: React.FC = () => {
         {
             title: t("sleep"), 
             actionType: 1,
-            icon: CribIcon,
-            color: "#4b10a9"
+            icon: HotelIcon,
+            color: "#117cb9"
         },
         {
             title: t("eat"),
             actionType: 2,
-            icon: RestaurantMenuIcon,
+            icon: DinnerDiningIcon,
             color: "#47c869"
         },
         {
             title: t("diaper"),
             actionType: 3,
-            icon: SpaIcon,
-            color: "#f4cc1d"
+            icon: BabyChangingStationIcon,
+            color: "#5f5c4c"
         }
     ]
 
