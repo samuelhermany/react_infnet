@@ -135,7 +135,8 @@ const Home: React.FC = () => {
                         <Grid size={{ xs: 12 }} item={true}>
                             <Grid container={true} spacing={2}>
                                 {
-                                    ACTIONS.map(action => <Grid size={{ xs: 4 }}>
+                                    ACTIONS.map((action, i) => 
+                                    <Grid key={i} size={{ xs: 4 }}>
                                         <CardNewItem
                                             title={action.title}
                                             Icon={action.Icon}

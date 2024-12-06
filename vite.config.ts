@@ -4,9 +4,9 @@ import livereload from "vite-plugin-live-reload";
 
 export default defineConfig(() => {
   return {
-    // server:{
-    //   port: 3000,
-    // },
+    server:{
+      port: 3000,
+    },
     build: {
       outDir: 'build',
     },

@@ -2,6 +2,8 @@ import { createContext, useContext, useEffect, useState } from 'react';
 import { Alert, Grid, Snackbar } from './components';
 import { useTranslation } from 'react-i18next';
 import { createClient } from '@supabase/supabase-js';
+import { ThemeProvider, useMediaQuery } from '@mui/material';
+import { darkTheme, lightTheme } from './theme';
 
 import duration from 'dayjs/plugin/duration';
 import utc from 'dayjs/plugin/utc';
@@ -13,19 +15,20 @@ dayjs.extend(timezone);
 dayjs.extend(duration);
 
 const AppContext = createContext(null);
-const supabase = createClient(import.meta.env.VITE_SUPABASE_URL, import.meta.env.VITE_SUPABASE_ANON_KEY)
+const supabase = createClient(import.meta.env.VITE_SUPABASE_URL, import.meta.env.VITE_API_KEY)
 
 // Children é o App.tsx
 const AppProvider = ({children}) => {
-   const { t: translate, i18n } = useTranslation();
+   const { t, i18n } = useTranslation();
    const timeoutDuration = 6000;
-
-   const [sanckOpen, setSanckOpen] = useState(false)
-   const [sanckMessage, setSnackMessage] = useState("")
+   const isDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
+   
+   const [snackOpen, setSnackOpen] = useState(false);
+   const [snackMessage, setSnackMessage] = useState("");
 
    const [alertMessage, setAlertMessage] = useState("");
    const [alertSeverity, setAlertSeverity] = useState("");
-   const [alertVariant, setAlertVariant] = useState("");
+   const [alertVariant, setAlertVariant] = useState(null);
 
    const changeLanguage = (lang) => {      
       i18n.changeLanguage(lang);
@@ -59,7 +62,7 @@ const AppProvider = ({children}) => {
       showSnackMessage,
       showAlertMessage,
       supabase,
-      translate
+      t
    };
 
    // Faz a seleção do idioma
@@ -78,31 +81,32 @@ const AppProvider = ({children}) => {
    return (
       <div className="app-background">
          <AppContext.Provider value={sharedState}>
-            {children}
-            {/* Após 6 segundos, chama a função on close */}
-            <Snackbar
-               autoHideDuration={timeoutDuration}
-               onClose={handleClose}
-               open={sanckOpen}
-               message={sanckMessage}
-            />
-            {alertMessage ?
-               <Grid container={true}
-                  sx={{
-                     position:'absolute',
-                     left:0,
-                     bottom:0,
-                     width:'100%',
-                     padding:2,
-                  }}
-               >
-                  <Grid item={true} size={{xs: 12}}>
-                     <Alert variant={alertVariant} severity={alertSeverity}>{alertMessage}</Alert>
-                  </Grid>
-               </Grid>
-            : null}
+                     <ThemeProvider theme={isDarkMode ? darkTheme : lightTheme}>
+                           {children}
+                           <Snackbar
+                              autoHideDuration={timeoutDuration}
+                              onClose={handleClose}
+                              open={snackOpen}
+                              message={snackMessage}
+                           />
+                           { alertMessage 
+                           ?   <Grid container={true}
+                                    sx={{
+                                       position: 'absolute',
+                                       left: 0,
+                                       bottom: 0,
+                                       width: '100%',
+                                       padding: 2
+                                    }}
+                              >
+                                    <Grid item={true} size={{ xs: 12 }}>
+                                       <Alert variant={alertVariant} severity={alertSeverity}>{alertMessage}</Alert>
+                                    </Grid>
+                              </Grid>
+                           : null}    
+                        </ThemeProvider>                
          </AppContext.Provider>
-      </div> 
+      </div>
    )
 }
 // devolve com o contexto o AppContext e com todas as funções dentro do AppProvider
