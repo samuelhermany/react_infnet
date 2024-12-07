@@ -1,0 +1,24 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "chrome",
+      "request": "launch",
+      "name": "Debug Vite App",
+      "url": "http://localhost:3000",
+      "webRoot": "${workspaceFolder}",  // Aponta para a raiz do projeto
+      "sourceMaps": true,
+      "trace": true,
+      "skipFiles": [
+        "node_modules/react-dom/umd/*.js",
+        "node_modules/react-dom/*.js",
+        "node_modules/react-i18next/**",        
+        "node_modules/**/*.js",
+        "node_modules/**/*.ts",
+        "node_modules/**/*.jsx",
+        "node_modules/**/*.tsx",
+        "<node_internals>/**"
+      ]
+    }
+  ]
+}
