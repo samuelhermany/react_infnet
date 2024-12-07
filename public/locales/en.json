@@ -56,5 +56,7 @@
     "from": "From",
     "to": "To",
     "days": "Day(s)",
-    "error-login": "Error loging"
+    "error-login": "Error loging",
+    "length": "length",
+    "add-something": "Add something"
 }

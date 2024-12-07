@@ -56,5 +56,7 @@
     "from": "De",
     "to": "Hasta",
     "days": "Día(s)",
-    "error-login": "Error al iniciar sesión"
+    "error-login": "Error al iniciar sesión",
+    "length": "longitud",
+    "add-something": "Agregar algo"
 }

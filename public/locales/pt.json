@@ -56,5 +56,7 @@
     "from": "De",
     "to": "Até",
     "days": "Dia(s)",
-    "error-login": "Erro ao fazer login"
+    "error-login": "Erro ao fazer login",
+    "length": "Comprimento",
+    "add-something": "Adicione algo"
 }

@@ -1,8 +1,7 @@
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import DeleteIcon from '@mui/icons-material/Delete';
+import { ArrowBackIcon, DeleteIcon } from "../../utils/icons";
 import { useNavigate } from 'react-router-dom';
 import { IconButton, Box } from '..';
 

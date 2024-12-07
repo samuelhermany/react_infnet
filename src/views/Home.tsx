@@ -1,15 +1,9 @@
 import { useTheme } from "@mui/material/styles";
-import { Grid, CardNewItem, Box, IconButton, Avatar, CustomList } from "../components";
+import { Grid, CardNewItem, Box, IconButton, Avatar, CustomList, Typography } from "../components";
 import { useAppContext } from "../Context";
 import babyImage from '../assets/img/baby.png';
 
-import HotelIcon from '@mui/icons-material/Hotel';
-import DinnerDiningIcon from '@mui/icons-material/DinnerDining';
-import BabyChangingStationIcon from '@mui/icons-material/BabyChangingStation';
-import SignalCellularAltIcon from '@mui/icons-material/SignalCellularAlt';
-import SettingsIcon from '@mui/icons-material/Settings';
-
-import { Typography } from "@mui/material";
+import { HotelIcon, DinnerDiningIcon, BabyChangingStationIcon, SignalCellularAltIcon, SettingsIcon } from "../utils/icons";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { list } from "../services/database";
@@ -18,6 +12,8 @@ import ActionInterface from "../interfaces/IAction";
 import { loadProfile } from "../utils/loader";
 import { calculateDuration, roundDays } from "../utils/date";
 import dayjs from "dayjs";
+// import { blue } from "@mui/material/colors";
+
 
 const Home: React.FC = () => {
     const { t, user, supabase } = useAppContext();    
@@ -27,24 +23,29 @@ const Home: React.FC = () => {
     const [page, setPage] = useState(1);
     const [data, setData] = useState<ActionInterface | null>(null);
 
+    // Cores personalizadas
+    const blue600 = theme.palette.custom.blue600;
+    const green600 = theme.palette.custom.green600;
+    const brown600 = theme.palette.custom.brown600;
+
     const actionsMain = [
         {
             title: t("sleep"), 
             actionType: 1,
             icon: HotelIcon,
-            color: "#117cb9"
+            color: blue600,
         },
         {
             title: t("eat"),
             actionType: 2,
             icon: DinnerDiningIcon,
-            color: "#47c869"
+            color: green600,
         },
         {
             title: t("diaper"),
             actionType: 3,
             icon: BabyChangingStationIcon,
-            color: "#5f5c4c"
+            color: brown600,
         }
     ]
 
@@ -99,7 +100,7 @@ const Home: React.FC = () => {
                                     ...styles.boxText
                                 }}>
                                     <Typography component="p" sx={{...styles.text2}}>{baby?.height?.value} cm</Typography>
-                                    <Typography component="p" sx={{...styles.text3}}>Comprimento</Typography>
+                                    <Typography component="p" sx={{...styles.text3}}>{t('length')}</Typography>
                                 </Box>
                             </Box>
                         </Grid>

@@ -13,7 +13,12 @@ const lightTheme = createTheme({
       main: '#005955',
       dark: '#003e3b',
       contrastText: '#000',
-    }
+    },
+    custom:{
+      blue600: '#117cb9',
+      green600: '#47c869',
+      brown600: '#5f5c4c',
+    },
   },
 });
 
@@ -30,6 +35,11 @@ const darkTheme = createTheme({
       main: '#f44336',
       dark: '#ba000d',
       contrastText: '#000',
+    },
+    custom:{
+      blue600: '#117cb9',
+      green600: '#47c869',
+      brown600: '#5f5c4c',
     },
   },
 });

@@ -1,3 +1,4 @@
+import { useTheme } from "@mui/material/styles";
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
@@ -5,26 +6,30 @@ import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
 import { useNavigate } from 'react-router-dom';
 
-import CribIcon from '@mui/icons-material/Crib';
-import RestaurantMenuIcon from '@mui/icons-material/RestaurantMenu';
-import SpaIcon from '@mui/icons-material/Spa';
-import { generateSubtitle } from '../../utils/action';
+import { HotelIcon, DinnerDiningIcon, BabyChangingStationIcon } from "../../utils/icons";
+import { generateSubtitle } from '../../utils/actions';
 import { useAppContext } from '../../Context';
 
 const CustomList = ({items, ...props}) => {
     const navigate = useNavigate();
     const { t } = useAppContext();
+    const theme = useTheme();
+
+    // Cores personalizadas
+    const blue600 = theme.palette.custom.blue600;
+    const green600 = theme.palette.custom.green600;
+    const brown600 = theme.palette.custom.brown600;
 
     const getIcon = (typeAction) => {
         switch (typeAction) {
         case 1:
-            return <CribIcon/>;
+            return <HotelIcon/>;
         case 2:
-            return <RestaurantMenuIcon/>;
+            return <DinnerDiningIcon/>;
         case 3:
-            return <SpaIcon/>;
+            return <BabyChangingStationIcon/>;
         default:
-            return <RestaurantMenuIcon/>;
+            return <DinnerDiningIcon/>;
         }
     }
 
@@ -35,9 +40,9 @@ const CustomList = ({items, ...props}) => {
     }
 
     const typeColor = {
-        1: "#4b10a9",
-        2: "#47c869",
-        3: "#f4cc1d",
+        1: blue600,
+        2: green600,
+        3: brown600, 
     }
 
     return (
