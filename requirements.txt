@@ -1,4 +1,0 @@
-Install typescript libraries
-npm install typescript @types/node @types/react @types/react-dom @types/jest @types/native-base --save-dev
- yarn add @types/native-base
- 
