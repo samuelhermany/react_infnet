@@ -58,5 +58,6 @@
     "days": "Day(s)",
     "error-login": "Error loging",
     "length": "length",
-    "add-something": "Add something"
+    "add-something": "Add something",
+    "user-not-found": "User not found"
 }

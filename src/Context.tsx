@@ -18,7 +18,11 @@ const AppContext = createContext<AppContextInterface | null>(null);
 const SnackbarContext = createContext<SnackbarContextInterface | undefined>(undefined);
 const AlertContext = createContext<AlertContextInterface | undefined>(undefined);
 
-const supabase = createClient(import.meta.env.VITE_SUPABASE_URL!, import.meta.env.VITE_API_KEY!);
+const supabase = createClient(import.meta.env.VITE_SUPABASE_URL!, import.meta.env.VITE_API_KEY!, {
+  auth: {
+    persistSession: false, // Evita salvar a sessão automaticamente no localStorage
+  },
+});
 
 interface AppProviderProps {
   children: ReactNode;

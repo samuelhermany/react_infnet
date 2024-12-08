@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { AppBar, Button, Grid, Box, TextField, Typography, DatePicker } from "../components";
 import { handleInputValue } from "../services/actions";
 import { useEffect, useState } from "react";
-import { list, saveOrUpdate } from "../services/database";
+import { saveOrUpdateProfile } from "../services/database";
 import { loadProfile } from "../utils/loader";
 import dayjs from "dayjs";
 
@@ -48,9 +48,13 @@ const Settings: React.FC = () => {
     }
 
     const save = async () => {
+        // Caso o usuário não esteja logado, retorna
+        if(!user){
+            showMessage(t("user-not-found"));
+            return
+        }
+
         setLoading(true);
-        //console.log(data.birth.value)
-        //console.log(user)
         const d: any = {
             user_id: user ? user.id : null,
             name: data.name.value,
@@ -58,14 +62,8 @@ const Settings: React.FC = () => {
             weight: data.weight.value,
             height: data.height.value,
         };
-
-        // Se data possui id, então adiciona ele ao d
-        if (data.id) {
-            d["id"] = data.id;
-        }
-        console.log(d)
-        console.log(d.user_id)
-        const { data: result, error } = await saveOrUpdate("profile", d, supabase);
+        
+        const { data: result, error } = await saveOrUpdateProfile("profile", d, supabase);
         if (error) {
             showMessage(error.message);
         } else{

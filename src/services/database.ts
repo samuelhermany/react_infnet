@@ -1,6 +1,13 @@
 import IDatabaseResponse from "../interfaces/IDatabaseResponse";
 import IDatabaseDeleteResponse from "../interfaces/IDatabaseDeleteResponse";
 
+const saveOrUpdateProfile = async (table: string, data: any, supabase: any): Promise<IDatabaseResponse> => {
+  return await supabase
+      .from(table)
+      .upsert(data, { onConflict: ['user_id'] })
+      .select();
+};
+
 const saveOrUpdate = async (table: string, data: any, supabase: any): Promise<IDatabaseResponse> => {
     return await supabase
         .from(table)
@@ -15,12 +22,7 @@ const remove = async (table: string, id: string, supabase: any): Promise<IDataba
                 .eq('id', id);
 }
 
-const list = async (
-  table: string, 
-  conditions: { [key: string]: any }, 
-  page: number, 
-  supabase: any
-): Promise<IDatabaseResponse> => {
+const list = async ( table: string, conditions: { [key: string]: any }, page: number,  supabase: any): Promise<IDatabaseResponse> => {
   if (!page) page = 1;
   const from = (page - 1) * 10;
   const to = from + 10;
@@ -37,7 +39,8 @@ const list = async (
 
 
 export {
-    saveOrUpdate,
-    remove,
-    list
+  saveOrUpdateProfile,
+  saveOrUpdate,
+  remove,
+  list
 }
